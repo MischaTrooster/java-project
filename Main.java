@@ -7,31 +7,45 @@ class Main {
 
         HashMap<String, Integer> mensen = new HashMap<>();
 
-        mensen.put("Ali", 10);
-        mensen.put("Sara", 41);
-        mensen.put("Jill", 48);
+        mensen.put("Ali", 44);
+        mensen.put("Romy", 24);
+        mensen.put("Diana", 22);
 
-        for (String naam : mensen.keySet()) {
-            System.out.println(naam + " is " + mensen.get(naam));
+        for (String naam : mensen.keySet()){
+            System.out.println(naam + " is "  + mensen.get(naam));
         }
 
         System.out.println("Voer een naam in:");
         String naam = sc.nextLine();
 
-        try {
+
+        try{  
             System.out.println("Voer een leeftijd in:");
             int leeftijd = sc.nextInt();
             sc.nextLine();
 
-            mensen.put(naam, leeftijd);
+            if(leeftijd < 0){
+                System.out.println("Leeftijd kan niet negatief zijn!");
+            }
 
-        } catch (Exception e) {
-            System.out.println("je moet een getal invoeren");
+            mensen.put(naam, leeftijd);
+        } catch(Exception e) {
+             System.out.println("Je moet een getal invoeren!");
         }
+
+        int totaal = 0;
+        for(int leeftijdWaarde : mensen.values()){
+            totaal += leeftijdWaarde;
+        }
+
+        double gemiddelde = totaal / (double) mensen.size();
+
+        System.out.println("Gemiddelde leeftijd: " + gemiddelde); 
+
 
         System.out.println("Nieuwe lijst:");
         for (String naam2 : mensen.keySet()) {
             System.out.println(naam2 + " is " + mensen.get(naam2));
         }
-    }
+    } 
 }
