@@ -1,51 +1,35 @@
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.ArrayList;
 
-class Main {
+public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        HashMap<String, Integer> mensen = new HashMap<>();
+        Person p1 = new Person("Ali", 22);
+        Person p2 = new Person("Romy", 24);
 
-        mensen.put("Ali", 44);
-        mensen.put("Romy", 24);
-        mensen.put("Diana", 22);
+        Group groep = new Group();
+        groep.addPerson(p1);
+        groep.addPerson(p2);
 
-        for (String naam : mensen.keySet()){
-            System.out.println(naam + " is "  + mensen.get(naam));
+        System.out.println("lijst van mensen:");
+        groep.printMensen();
+
+        p1.setAge(30);
+        System.out.println("\nNa aanpassen leeftijd:");
+        System.out.println(p1.getName() + " is nu " + p1.getAge());
+
+        try {
+            p1.setAge(-10);
+        } catch (IllegalArgumentException e) {
+            System.out.println("\nNa fouten input.");
+            System.out.println("fout:" + e.getMessage());
         }
 
-        System.out.println("Voer een naam in:");
-        String naam = sc.nextLine();
+        System.out.println("\nGemiddelde leeftijd: " + groep.getGemiddeldeLeeftijd());
 
-
-        try{  
-            System.out.println("Voer een leeftijd in:");
-            int leeftijd = sc.nextInt();
-            sc.nextLine();
-
-            if(leeftijd < 0){
-                System.out.println("Leeftijd kan niet negatief zijn!");
-            }
-
-            mensen.put(naam, leeftijd);
-        } catch(Exception e) {
-             System.out.println("Je moet een getal invoeren!");
+        Person oudste = groep.getOudstePersoon();
+        if (oudste != null) {
+            System.out.println("\nOudste persoon: " + oudste);
         }
 
-        int totaal = 0;
-        for(int leeftijdWaarde : mensen.values()){
-            totaal += leeftijdWaarde;
-        }
-
-        double gemiddelde = totaal / (double) mensen.size();
-
-        System.out.println("Gemiddelde leeftijd: " + gemiddelde); 
-
-
-        System.out.println("Nieuwe lijst:");
-        for (String naam2 : mensen.keySet()) {
-            System.out.println(naam2 + " is " + mensen.get(naam2));
-        }
-    } 
+    }
 }
