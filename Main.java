@@ -1,35 +1,71 @@
 import java.util.ArrayList;
+            int choice = sc.nextInt();
+            sc.nextLine();
 
-public class Main {
-    public static void main(String[] args) {
+            switch (choice) {
 
-        Person p1 = new Person("Ali", 22);
-        Person p2 = new Person("Romy", 24);
+                case 1:
+                    System.out.print("Titel: ");
+                    String title = sc.nextLine();
 
-        Group groep = new Group();
-        groep.addPerson(p1);
-        groep.addPerson(p2);
+                    System.out.print("Beschrijving: ");
+                    String description = sc.nextLine();
 
-        System.out.println("lijst van mensen:");
-        groep.printMensen();
+                    System.out.print("Deadline: ");
+                    String deadline = sc.nextLine();
 
-        p1.setAge(30);
-        System.out.println("\nNa aanpassen leeftijd:");
-        System.out.println(p1.getName() + " is nu " + p1.getAge());
+                    Task newTask = new Task(title, description, deadline);
+                    tasks.add(newTask);
 
-        try {
-            p1.setAge(-10);
-        } catch (IllegalArgumentException e) {
-            System.out.println("\nNa fouten input.");
-            System.out.println("fout:" + e.getMessage());
+                    System.out.println("Taak toegevoegd!");
+                    break;
+
+                case 2:
+                    if (tasks.isEmpty()) {
+                        System.out.println("Geen taken gevonden.");
+                    } else {
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println(i + ". " + tasks.get(i));
+                        }
+                    }
+                    break;
+
+                case 3:
+                    System.out.print("Voer index van taak in: ");
+                    int removeIndex = sc.nextInt();
+                    sc.nextLine();
+
+                    if (removeIndex >= 0 && removeIndex < tasks.size()) {
+                        tasks.remove(removeIndex);
+                        System.out.println("Taak verwijderd!");
+                    } else {
+                        System.out.println("Ongeldige index.");
+                    }
+                    break;
+
+                case 4:
+                    System.out.print("Voer index van taak in: ");
+                    int completeIndex = sc.nextInt();
+                    sc.nextLine();
+
+                    if (completeIndex >= 0 && completeIndex < tasks.size()) {
+                        tasks.get(completeIndex).markCompleted();
+                        System.out.println("Taak afgerond!");
+                    } else {
+                        System.out.println("Ongeldige index.");
+                    }
+                    break;
+
+                case 5:
+                    running = false;
+                    System.out.println("Programma afgesloten.");
+                    break;
+
+                default:
+                    System.out.println("Ongeldige keuze.");
+            }
         }
 
-        System.out.println("\nGemiddelde leeftijd: " + groep.getGemiddeldeLeeftijd());
-
-        Person oudste = groep.getOudstePersoon();
-        if (oudste != null) {
-            System.out.println("\nOudste persoon: " + oudste);
-        }
-
+        sc.close();
     }
 }
